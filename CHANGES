@@ -22,7 +22,14 @@ description indicates whether it is SOURCE-COMPATIBLE, BINARY-COMPATIBLE, or BRE
 Further information about [seL4 releases](https://docs.sel4.systems/sel4_release/) is available.
 
 ---
-Upcoming release: BREAKING
+Upcoming release: BINARY COMPATIBLE
+
+## Changes
+
+
+## Upgrade Notes
+---
+12.0.0 2020-10-21: BREAKING
 
 ## Changes
 
