@@ -26,19 +26,144 @@ Upcoming release: BINARY COMPATIBLE
 
 ## Changes
 
-
 ## Upgrade Notes
 ---
 12.0.0 2020-10-21: BREAKING
 
 ## Changes
 
+* Arm SMMU v2 kernel API
 * aarch32: Moved TPIDRURO (PL0 Read-Only Thread ID register) to TCB register context from VCPU registers. This means
   changes to this register from user level have to go via seL4_TCB_Write Registers instead of seL4_ARM_VCPU_WriteRegs.
 * aarch64,cortex-a53,hyp: Reduce seL4_UserTop when on a cortex-a53 platform and KernelArmHypervisorSupport is set.
   This is because the kernel uses the last slot in the top level VSpace object for storing the assigned VMID and so
   any addresses that are addressed by the final slot are not accessible.
   This would apply to any CPU that have 40bit stage 2 translation input address.
+* Use correct configuration for TLS base.
+* Mcs: add tcb argument to reply_unlink.
+* Build aarch32 kernel for ZCU102.
+* Manual fix and additions.
+* Rockpro64: enable mcs.
+* Capdl: add kernel debugging tool for capdl.
+* Riscv: clear reservation state on slowpath exit.
+* Riscv: copy dtb as extra bootinfo.
+* Fix license to bsd for libsel4 files.
+* Boot: initialise root server domain.
+* Mcs: return pointer from `refill_head` and others.
+* Mcs: change refill_head, refill_tail to functions.
+* Fix tcb_ptr_debug_ptr debug macro.
+* Riscv: tweak section alignment.
+* Riscv: clang support.
+* Clang 11 build fixes.
+* Manual: remove mention of system criticality.
+* Updates for risc-v mcs cspec generation.
+* Check for reschedule on sched context return.
+* CI: Add a PR check to do a stand-alone kernel compilation.
+* Gicv3: include cluster id when sending ipis.
+* Manual: document schedcontext size_bits meaning.
+* Riscv: use full width of scause.
+* CMake: kernel.elf LINK_DEPENDS linker script.
+* Bitfield_gen: fixups for mcs.
+* MCS System changes
+* X86: fix if reset upon nested interrupt.
+* Debug: create debug_tcb_t struct.
+* Extend Kernel thread utilization benchmarking functions.
+* X64: The PCID feature is the 17th bit in ECX when CPUID is called with EAX=1. The constant for testing the feature should be 0x20000.
+* Repair barriers in clh_lock_acquire.
+* Repair barriers in sel4_atomic_exchange.
+* Tools: bsd compat for changed.sh.
+* Fix .gitignore patterns.
+* Fix broken links in readme.md.
+* X86: fix printf typo in apic_init().
+* Tools: fix brackets in format parameters.
+* Aarch64: add missing vcpu cases.
+* Consolidate kernel mapping constants.
+* Kernel printf implementation based on musl printf.
+* Riscv: fix preprocess failure.
+* Riscv64 fpu.
+* Add isBlocked and rename isBlocked to isStopped.
+* Mcs: compare with time in assigned core.
+* Riscv: tweak frame remap errors again.
+* Riscv: add return in decoderiscvframeinvocation.
+* Fix asid check for remapping a frame.
+* Split ThreadControl into caps and sched.
+* Riscv: tweak unmappagetable loop.
+* Riscv: reorder setmr to align to enum.
+* Riscv: refactor for easier verification.
+* Riscv: performasidcontrolinvocation ghost updates.
+* Riscv: fix page map.
+* Riscv: explicit level check for lookupptslot.
+* Riscv: dont_translate modifies_sip.
+* Hifive: expose sel4_irqcontrol_gettrigger api.
+* Remove field from seL4_Userexception on RISCV.
+* Riscv: cap_get_archcapisphysical unreachable case.
+* Riscv: change vm_fault_type_t to word_t.
+* Riscv: add ghost state tracking for risc-v objects.
+* Add missing semicolon to dts file.
+* Kernel fixes for qemu-arm-virt platform.
+* Riscv: use same vm_rights as x86 for caps.
+* DCO in CONTRIBUTING.md.
+* Gcc.cmake add additional riscv toolchains.
+* README.md: Update with links from seL4 docsite.
+* Riscv: use 2 bits for capfvmrights.
+* New config flag to enable userError format strings to be written to the IPC buffer.
+* Riscv: use word_t rather than "unsigned int".
+* Riscv: add cache function prototype.
+* Riscv,interrupt.c: allow checkirq to use full range.
+* Rename sptbr and remove encoding.h.
+* Replacing the ifdef guard by pragma once in kernel.
+* Manual: mention grantreply rights in the exceptions section.
+* Hifive: switch inline asm to c for mmio ops.
+* Riscv: change verified target to hifive.
+* Mcs: allow replygrant for fault handlers.
+* Gcc.cmake: don't use cache when setting variables.
+* Fix python warning in syscall stub generator.
+* Gcc.cmake: detect if toolchain file is templated.
+* Set CROSS_COMPILER_PREFIX in gcc.cmake template.
+* Fastpath: fix for armv6 with gcc8.
+* Update contributors.md from repo.
+* Make sel4 repo reuse spec compliant.
+* Change license tags to SPDX.
+* Qemu-arm-virt: fix incorrect timer frequency.
+* Fastpath optimisation.
+* Zynq7000: fix a timer accuracy issue.
+* Set the cross compiler prefix to the triple (Clang).
+* ARM VCPU SMP update.
+* Arm_hyp updates.
+* Kernel-Vtx: Use clang compatible inline assembly.
+* Optimize instruction cache access for fastpath.
+* Clang support.
+* Mcs-smp: tcb affinity modification bug.
+* Bugfix for riscv, use the correct config macro.
+* ARM: Add support to flush L1 caches.
+* Riscv32 does not support huge pages.
+* Create shared IRQ prototype definitions.
+* Update non-mcs sabre clock.
+* Imx31: add missing dts entry for the epit2 timer.
+* Fix MCS timer for KZM.
+* Fix TX1 clock timer.
+* Move vcpu_switch into Arch_switchToThread.
+* Aarch64: fix far_el1 width in writefar.
+* Aarch64: fix mrs/msr in writeelr_el1.
+* Manual: rework introduction of system calls.
+* Expand and fix arm architecture-specific object method documentation.
+* RISCV: Added stdout-path to hifive dts.
+* Fixups for SimplExportAndRefine on RISCV64.
+* Hardware_gen: add elfloader cpus output.
+* Fix bug with boot failing when user image pushed against page directory boundary.
+* Hardware_gen: add elfloader output.
+* Remove beaglebone kernel timer prescaling.
+* Add support for ARM cross-compilers on Red Hat distros.
+* Use autoconf definition for `RetypeMaxObjects` def.
+* Improve introduction to CHANGES section.
+* Revert the recent changes to Faster FPU switch.
+* Cache FPU enable state on all platforms.
+* Riscv: add support for rocketchip soc.
+* Ariane: remove unused dts overlay.
+* Gcc.cmake: add option for coloured gcc output.
+* Fix x86 KERNEL_TIMER_IRQ definition.
+* Riscv: update page table level numberings from 1,2,.. to 0,1,..
+* Rename kdev_pptr/pptr_kdev to kdev_base for consistency with verification.
 
 ## Upgrade Notes
 ---
